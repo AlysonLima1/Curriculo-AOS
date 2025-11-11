@@ -45,3 +45,23 @@ router.delete("/:id", async (req, res) => {
 });
 
 export default router;
+
+// Criar pessoa
+router.post("/", async (req, res) => {
+  try {
+    const { nome, email, telefone, curso, periodo, instituicao, experiencia } = req.body;
+
+    console.log("Recebido do Postman:", req.body);
+
+    await pool.query(
+      "INSERT INTO pessoas (nome, email, telefone, curso, periodo, instituicao, experiencia) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [nome, email, telefone, curso, periodo, instituicao, experiencia]
+    );
+
+    res.send("Pessoa cadastrada com sucesso!");
+  } catch (error) {
+    console.error("Erro ao inserir pessoa:", error);
+    res.status(500).send("Erro ao cadastrar pessoa");
+  }
+});
+
