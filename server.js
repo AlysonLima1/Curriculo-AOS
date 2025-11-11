@@ -19,3 +19,13 @@ app.use("/experiencias", experienciasRoutes);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+
+const app = express();
+app.use(express.json()); // ← ESSENCIAL para o POST funcionar
+
+app.use("/pessoas", pessoasRoutes);
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Servidor rodando na porta 3000");
+});
+
